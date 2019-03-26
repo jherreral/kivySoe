@@ -33,31 +33,31 @@ class PongPaddle(Widget):
             ball.velocity = speedup * (offset - ball.velocity)
 
 class PongGame(Widget):
-    ball = ObjectProperty(None)
+    ballOP = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
 
     def update(self,dt):
         #call ball.move and other stuff
-        self.ball.move()
+        self.ballOP.move()
         #bounce off paddles
-        self.player1.bounce_ball(self.ball)
-        self.player2.bounce_ball(self.ball)
+        self.player1.bounce_ball(self.ballOP)
+        self.player2.bounce_ball(self.ballOP)
         # bounce off the top and bottom
-        if (self.ball.y < 0) or (self.ball.top > self.height):
-            self.ball.velocity_y *= -1
+        if (self.ballOP.y < 0) or (self.ballOP.top > self.height):
+            self.ballOP.velocity_y *= -1
 
         #bounce off left and right
-        if self.ball.x < self.x:
+        if self.ballOP.x < self.x:
             self.player2.score += 1
             self.serve_ball(vel=(4,0))
-        if self.ball.x > self.width:
+        if self.ballOP.x > self.width:
             self.player1.score += 1
             self.serve_ball(vel=(-4,0))
 
     def serve_ball(self, vel=(4,0)):
-        self.ball.center = self.center
-        self.ball.velocity = vel
+        self.ballOP.center = self.center
+        self.ballOP.velocity = vel
 
     def on_touch_move(self,touch):
         if touch.x < self.width/3:

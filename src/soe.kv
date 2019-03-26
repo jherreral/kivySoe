@@ -1,0 +1,28 @@
+#:kivy 1.0.9
+
+<PlayerView>:
+    logOP: logID
+
+    canvas:
+        Rectangle:
+            pos: self.center_x - 5, 0
+            size: 10, self.height
+
+    Log:
+        id: logID
+        right: root.width
+        y: root.center_y
+
+<Log>:
+    size_hint: None,None
+    size: 100,75
+    Label:
+        text: root.textLogSP        
+        size_hint: 1,None
+        size:self.texture_size
+        canvas.before:
+            Color:
+                rgba:0.99,0.5,0,1
+            Rectangle:
+                pos: self.pos
+                size:self.size

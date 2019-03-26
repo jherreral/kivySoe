@@ -1,0 +1,21 @@
+#:kivy 1.0.9
+
+<PongGame>:
+    player1: player_left
+
+    canvas:
+        Rectangle:
+            pos: self.center_x - 5, 0
+            size: 10, self.height
+
+    PongPaddle:
+        id: player_left
+        x: 0
+        center_y: root.center_y
+
+<PongPaddle>:
+    size: 25,100
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size:self.size
