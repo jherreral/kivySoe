@@ -40,10 +40,11 @@ class PlayerView(Widget):
     logOP2 = ObjectProperty(None)
     trackOP0 = ObjectProperty(None)
     
-    def __init__(self,**kwargs):
+    def __init__(self,boardData,**kwargs):
         super(PlayerView,self).__init__(**kwargs)
         self.i = 0
         self.trackSet = False
+        self.boardData = boardData
         self.playerTrackData = [
         [1,1,1,0],
         [2,2,2,0],
@@ -63,14 +64,38 @@ class PlayerView(Widget):
             self.playerTrackData[0][0] = 7
             self.trackOP0.updateColumns(self.playerTrackData)
 
+class Card:
+    def __init__(self,name):
+        self.name = name
 
-    
+class BoardData:
+    def __init__(self):
+        self.log = ("You spin me \n"
+                    "You spin me right round, baby\n"
+                    "Right round like a record, baby\n"
+                    "Right round round round\n"
+                    "You spin me right round, baby\n"
+                    "Right round like a record, baby\n"
+                    "Right round round round")
+        self.track = [[1,1,1,1],
+                    [2,2,2,2],
+                    [3,3,3,3],
+                    [4,4,4,4]]
+        self.turnDeck = [Card("Copter"),
+                        Card("Sniper")]
+        self.discardDeck = [Card("Diplomacy"),
+                            Card("Revolution")]
+        self.map = None
 
 class SoeApp(App):
     def build(self):
-        game = PlayerView()
+        boardData = self.getBoardData()
+        game = PlayerView(boardData)
         Clock.schedule_interval(game.update, 1.0/1.0)
         return game
+
+    def getBoardData(self):
+        return BoardData()
 
 if __name__ == '__main__':
     SoeApp().run()
