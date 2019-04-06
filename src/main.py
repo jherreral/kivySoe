@@ -9,8 +9,24 @@ from kivy.vector import Vector
 from kivy.clock import Clock
 from random import randint
 
+class Track(GridLayout):
+    boxOP = ObjectProperty(None)
+    #playersInfoLP = ListProperty([])
+
+    def createPlayerColumns(self, playerInfo):
+        """ playerInfo must be a list with lists"""        
+        for pc in playerInfo:
+            newPlayer = TrackColumn()
+            newPlayer.infoLP.set(pc)
+            self.boxOP.add_widget(newPlayer)
+
+    def updateColumns(self,playerInfo):
+        #Change enumerate to zip playerInfo-boxOP.children
+        for idx,child in enumerate(self.boxOP.children):
+            child.infoLP.set(playerInfo[idx])
+
 class TrackColumn(GridLayout):
-    infoLP = ListProperty(["a","b","c","d"])
+    infoLP = ListProperty([0,0,0,0])
     def __init__(self,**kwargs):
         super(TrackColumn,self).__init__(**kwargs)
         #self.playerLists = [[1,2,3,4]]
@@ -22,11 +38,16 @@ class Log(ScrollView):
 class PlayerView(Widget):
     logOP = ObjectProperty(None)
     logOP2 = ObjectProperty(None)
-    trackOP1 = ObjectProperty(None)
+    trackOP0 = ObjectProperty(None)
     
     def __init__(self,**kwargs):
         super(PlayerView,self).__init__(**kwargs)
         self.i = 0
+        self.trackSet = False
+        self.playerTrackData = [
+        [1,1,1,0],
+        [2,2,2,0],
+        [3,3,3,0]]
     
     def update(self,dt):
         #call ball.move and other stuff
@@ -34,10 +55,16 @@ class PlayerView(Widget):
         self.i += 1
         if (self.i > 3):
             self.logOP2.textLogSP = "Hi"
-            self.trackOP1.infoLP[0] = "ffff"
+            if not self.trackSet:
+                self.trackOP0.createPlayerColumns(self.playerTrackData)
+                self.trackSet = True
         if(self.i > 5):
             self.logOP2.textLogSP = "Hi2"
-            
+            self.playerTrackData[0][0] = 7
+            self.trackOP0.updateColumns(self.playerTrackData)
+
+
+    
 
 class SoeApp(App):
     def build(self):

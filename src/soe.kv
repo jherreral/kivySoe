@@ -3,6 +3,7 @@
 <PlayerView>:
     logOP: logID
     logOP2: logID2
+    trackOP0: trackID0
     trackOP1: trackID1
 
     canvas:
@@ -21,10 +22,32 @@
         top: root.top
         logColor: 0.25,0.30,0.75,1
 
+    Track:
+        id: trackID0
+        center_x: root.center_x
+        y: root.y
+
     TrackColumn:
         id: trackID1
         left: root.x
         y: root.y
+
+<Track>:
+    boxOP : boxID
+    id:trackClass
+    trackColor: 0.1,0.4,0,1
+    rows:1
+    canvas.before:
+        Color:
+            rgba:trackClass.trackColor
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    BoxLayout:
+        id:boxID
+        orientation: 'horizontal'
+        Label:
+            text:'placeholder'
 
 <TrackColumn>:
     id:trackColumnClass
@@ -38,13 +61,13 @@
             pos: self.pos
             size:self.size
     Label:
-        text: root.infoLP[0]
+        text: str(root.infoLP[0])
     Label:
-        text: root.infoLP[1]        
+        text: str(root.infoLP[1])        
     Label:
-        text: root.infoLP[2]
+        text: str(root.infoLP[2])
     Label:
-        text: root.infoLP[3]
+        text: str(root.infoLP[3])
 
 <Log>:
     id:logClass
