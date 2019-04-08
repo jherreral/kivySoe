@@ -44,10 +44,13 @@
             pos:self.pos
             size:self.size
     BoxLayout:
-        id:boxID
         orientation: 'horizontal'
-        Label:
-            text:'placeholder'
+        TrackColumn:
+            infoLP:['Prod','Oils','Sphs','Caps']
+        BoxLayout:
+            id:boxID
+            orientation: 'horizontal'
+
 
 <TrackColumn>:
     id:trackColumnClass

@@ -14,16 +14,19 @@ class Track(GridLayout):
     #playersInfoLP = ListProperty([])
 
     def createPlayerColumns(self, playerInfo):
-        """ playerInfo must be a list with lists"""        
-        for pc in playerInfo:
+        """ playerInfo must be a list with lists"""
+        nOfPlayers = len(playerInfo)        
+        for idx,pc in enumerate(playerInfo):
             newPlayer = TrackColumn()
-            newPlayer.infoLP.set(pc)
-            self.boxOP.add_widget(newPlayer)
+            for x in range(nOfPlayers):
+                newPlayer.infoLP[x]=pc[x]
+            self.boxOP.add_widget(newPlayer,nOfPlayers-idx)
 
     def updateColumns(self,playerInfo):
         #Change enumerate to zip playerInfo-boxOP.children
         for idx,child in enumerate(self.boxOP.children):
-            child.infoLP.set(playerInfo[idx])
+            for x in range(4):
+                child.infoLP[x]=playerInfo[idx][x]
 
 class TrackColumn(GridLayout):
     infoLP = ListProperty([0,0,0,0])
@@ -45,24 +48,20 @@ class PlayerView(Widget):
         self.i = 0
         self.trackSet = False
         self.boardData = boardData
-        self.playerTrackData = [
-        [1,1,1,0],
-        [2,2,2,0],
-        [3,3,3,0]]
     
     def update(self,dt):
         #call ball.move and other stuff
         self.logOP.textLogSP = self.logOP.textLogSP + "\nble"
         self.i += 1
-        if (self.i > 3):
+        if (self.i > 2):
             self.logOP2.textLogSP = "Hi"
             if not self.trackSet:
-                self.trackOP0.createPlayerColumns(self.playerTrackData)
+                self.trackOP0.createPlayerColumns(self.boardData.track)
                 self.trackSet = True
-        if(self.i > 5):
+        if(self.i > 4):
             self.logOP2.textLogSP = "Hi2"
-            self.playerTrackData[0][0] = 7
-            self.trackOP0.updateColumns(self.playerTrackData)
+            self.boardData.track[0][0] = 7
+            #self.trackOP0.updateColumns(self.boardData.track)
 
 class Card:
     def __init__(self,name):
