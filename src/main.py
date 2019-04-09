@@ -16,17 +16,18 @@ class Track(GridLayout):
     def createPlayerColumns(self, playerInfo):
         """ playerInfo must be a list with lists"""
         nOfPlayers = len(playerInfo)        
-        for idx,pc in enumerate(playerInfo):
+        for pc in playerInfo:
             newPlayer = TrackColumn()
             for x in range(nOfPlayers):
                 newPlayer.infoLP[x]=pc[x]
-            self.boxOP.add_widget(newPlayer,nOfPlayers-idx)
+            self.boxOP.add_widget(newPlayer,0)
 
     def updateColumns(self,playerInfo):
         #Change enumerate to zip playerInfo-boxOP.children
+        adjustedInfo = playerInfo[::-1]
         for idx,child in enumerate(self.boxOP.children):
             for x in range(4):
-                child.infoLP[x]=playerInfo[idx][x]
+                child.infoLP[x]=adjustedInfo[idx][x]
 
 class TrackColumn(GridLayout):
     infoLP = ListProperty([0,0,0,0])
@@ -61,7 +62,7 @@ class PlayerView(Widget):
         if(self.i > 4):
             self.logOP2.textLogSP = "Hi2"
             self.boardData.track[0][0] = 7
-            #self.trackOP0.updateColumns(self.boardData.track)
+            self.trackOP0.updateColumns(self.boardData.track)
 
 class Card:
     def __init__(self,name):
