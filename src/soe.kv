@@ -5,6 +5,7 @@
     logOP2: logID2
     trackOP0: trackID0
     trackOP1: trackID1
+    deckOP1:deckID1
 
     canvas:
         Rectangle:
@@ -31,6 +32,11 @@
         id: trackID1
         left: root.x
         y: root.y
+
+    Decks:
+        id:deckID1
+        right:root.right
+        y:root.y
 
 <Track>:
     boxOP : boxID
@@ -90,4 +96,15 @@
             Rectangle:
                 pos: self.pos
                 size:self.size
-                
+
+<Decks>:
+    id:deckClass
+    deckColor: 0.60,0.1,0.1,1
+    canvas.before:
+        Color:
+            rgba: deckClass.deckColor
+        Rectangle:
+            pos: self.pos
+            size:self.size
+    Button:
+        text:"Discard\ndeck"

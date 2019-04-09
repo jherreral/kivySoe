@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout 
+from kivy.uix.floatlayout import FloatLayout 
 from kivy.properties import (
     StringProperty, ReferenceListProperty, ObjectProperty, ListProperty
 )
@@ -8,6 +9,16 @@ from kivy.uix.scrollview import ScrollView
 from kivy.vector import Vector
 from kivy.clock import Clock
 from random import randint
+
+class Decks(FloatLayout):
+    btnDiscardOP = ObjectProperty(None)
+    
+    def on_press(self):
+        self.showDiscardDeck()
+        print("Button pressed")
+
+    def showDiscardDeck(self):
+        pass
 
 class Track(GridLayout):
     boxOP = ObjectProperty(None)
