@@ -5,7 +5,7 @@
     logOP2: logID2
     trackOP0: trackID0
     trackOP1: trackID1
-    deckOP1:deckID1
+    listOP1:listID1
 
     canvas:
         Rectangle:
@@ -33,10 +33,8 @@
         left: root.x
         y: root.y
 
-    Decks:
-        id:deckID1
-        right:root.right
-        y:root.y
+    ListChoice:
+        id:listID1
 
 <Track>:
     boxOP : boxID
@@ -108,3 +106,52 @@
             size:self.size
     Button:
         text:"Discard\ndeck"
+
+<TBLabel@Label>:
+    text: "TopBar"
+    canvas.before:
+        Color:
+            rgba: 0.1,0.1,0.1,1
+        Rectangle:
+            pos: self.pos
+            size:self.size
+
+<ListChoice>:
+    stackOP:stackID
+    id:listChoiceClass
+    listColor:0.2,0.2,0.2,1
+    rows:2
+    cols:1
+    drag_rectangle: tpID.x, tpID.y, tpID.width, tpID.height
+    drag_timeout: 10000000
+    drag_distance: 0
+    canvas.before:
+        Color:
+            rgba: listChoiceClass.listColor
+        Rectangle:
+            pos: self.pos
+            size:self.size
+    TBLabel:
+        id:tpID
+        top:root.top
+        size_hint:1,None
+        height:30
+    ScrollView:
+        size_hint: None,None
+        height:root.height - 30
+        width:root.width
+        StackLayout:
+            id:stackID
+            orientation:"lr-tb"
+            size_hint:1,None
+            Label:
+                text:"placeholder"
+                size:self.texture_size
+                size_hint: 1,None
+            Label:
+                text:"placeholder"
+                size:self.texture_size
+                size_hint: 1,None
+
+
+

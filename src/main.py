@@ -1,10 +1,12 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout 
 from kivy.uix.floatlayout import FloatLayout 
 from kivy.properties import (
     StringProperty, ReferenceListProperty, ObjectProperty, ListProperty
 )
+from kivy.uix.behaviors import DragBehavior
 from kivy.uix.scrollview import ScrollView
 from kivy.vector import Vector
 from kivy.clock import Clock
@@ -19,6 +21,20 @@ class Decks(FloatLayout):
 
     def showDiscardDeck(self):
         pass
+
+class ListChoice(DragBehavior,GridLayout):
+    stackOP=ObjectProperty(None)
+    
+    def __init__(self,**kwargs):
+        super(ListChoice,self).__init__(**kwargs)
+
+
+    def fillWithLabels(self,n):
+        for x in range(n):
+            l = Label(text="placeholder")
+            l.size = l.texture_size
+            l.size_hint=(1,None)
+            self.stackOP.add_widget(l)
 
 class Track(GridLayout):
     boxOP = ObjectProperty(None)
@@ -67,6 +83,7 @@ class PlayerView(Widget):
         self.i += 1
         if (self.i > 2):
             self.logOP2.textLogSP = "Hi"
+            self.listOP1.fillWithLabels(3)
             if not self.trackSet:
                 self.trackOP0.createPlayerColumns(self.boardData.track)
                 self.trackSet = True
